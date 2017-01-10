@@ -16,6 +16,9 @@
 		1A5240181E22EF9B00C13CB6 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5240171E22EF9B00C13CB6 /* RealmManager.swift */; };
 		1A52401B1E22EFDE00C13CB6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A52401A1E22EFDE00C13CB6 /* User.swift */; };
 		1A52401D1E22F4C200C13CB6 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A52401C1E22F4C200C13CB6 /* Note.swift */; };
+		1A52401F1E22F81F00C13CB6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A52401E1E22F81F00C13CB6 /* GoogleService-Info.plist */; };
+		1A5240221E23C09600C13CB6 /* ViewControllerHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5240211E23C09600C13CB6 /* ViewControllerHelpers.swift */; };
+		1A5240241E24808400C13CB6 /* NoteTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5240231E24808400C13CB6 /* NoteTableController.swift */; };
 		24809BCD2E98C09292BBDCDD /* Pods_Post_Notes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6739C52669A803386DD6712 /* Pods_Post_Notes.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +34,9 @@
 		1A5240171E22EF9B00C13CB6 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmManager.swift; path = Models/RealmManager.swift; sourceTree = "<group>"; };
 		1A52401A1E22EFDE00C13CB6 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/User.swift; sourceTree = "<group>"; };
 		1A52401C1E22F4C200C13CB6 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Note.swift; path = Models/Note.swift; sourceTree = "<group>"; };
+		1A52401E1E22F81F00C13CB6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1A5240211E23C09600C13CB6 /* ViewControllerHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerHelpers.swift; path = Extensions/ViewControllerHelpers.swift; sourceTree = "<group>"; };
+		1A5240231E24808400C13CB6 /* NoteTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoteTableController.swift; path = "View Controllers/NoteTableController.swift"; sourceTree = "<group>"; };
 		D6739C52669A803386DD6712 /* Pods_Post_Notes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Post_Notes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D78A042B0BED3317B499A06A /* Pods-Post Notes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Post Notes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Post Notes/Pods-Post Notes.release.xcconfig"; sourceTree = "<group>"; };
 		E8B6A7EE1990EF960176EA1C /* Pods-Post Notes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Post Notes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Post Notes/Pods-Post Notes.debug.xcconfig"; sourceTree = "<group>"; };
@@ -78,13 +84,16 @@
 		1A523FFF1E22E06C00C13CB6 /* Post Notes */ = {
 			isa = PBXGroup;
 			children = (
+				1A5240251E253AEE00C13CB6 /* Views */,
 				1A5240191E22EFBB00C13CB6 /* Models */,
 				1A5240161E22ED6900C13CB6 /* View Controllers */,
+				1A5240201E23C07C00C13CB6 /* Extensions */,
 				1A5240001E22E06C00C13CB6 /* AppDelegate.swift */,
 				1A5240041E22E06C00C13CB6 /* Main.storyboard */,
 				1A5240071E22E06C00C13CB6 /* Assets.xcassets */,
 				1A5240091E22E06C00C13CB6 /* LaunchScreen.storyboard */,
 				1A52400C1E22E06C00C13CB6 /* Info.plist */,
+				1A52401E1E22F81F00C13CB6 /* GoogleService-Info.plist */,
 			);
 			path = "Post Notes";
 			sourceTree = "<group>";
@@ -94,6 +103,7 @@
 			children = (
 				1A5240021E22E06C00C13CB6 /* AuthViewController.swift */,
 				1A5240141E22ED6100C13CB6 /* NavigationController.swift */,
+				1A5240231E24808400C13CB6 /* NoteTableController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -106,6 +116,21 @@
 				1A52401C1E22F4C200C13CB6 /* Note.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		1A5240201E23C07C00C13CB6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1A5240211E23C09600C13CB6 /* ViewControllerHelpers.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		1A5240251E253AEE00C13CB6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		ABAD22E4592F64744141DB61 /* Frameworks */ = {
@@ -179,6 +204,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A52401F1E22F81F00C13CB6 /* GoogleService-Info.plist in Resources */,
 				1A52400B1E22E06C00C13CB6 /* LaunchScreen.storyboard in Resources */,
 				1A5240081E22E06C00C13CB6 /* Assets.xcassets in Resources */,
 				1A5240061E22E06C00C13CB6 /* Main.storyboard in Resources */,
@@ -241,11 +267,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A5240031E22E06C00C13CB6 /* AuthViewController.swift in Sources */,
+				1A5240221E23C09600C13CB6 /* ViewControllerHelpers.swift in Sources */,
 				1A5240181E22EF9B00C13CB6 /* RealmManager.swift in Sources */,
 				1A5240151E22ED6100C13CB6 /* NavigationController.swift in Sources */,
 				1A52401B1E22EFDE00C13CB6 /* User.swift in Sources */,
 				1A5240011E22E06C00C13CB6 /* AppDelegate.swift in Sources */,
 				1A52401D1E22F4C200C13CB6 /* Note.swift in Sources */,
+				1A5240241E24808400C13CB6 /* NoteTableController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +399,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = WP7AET382G;
 				INFOPLIST_FILE = "Post Notes/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.catnip.Post-Notes";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -385,6 +414,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = WP7AET382G;
 				INFOPLIST_FILE = "Post Notes/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.catnip.Post-Notes";
 				PRODUCT_NAME = "$(TARGET_NAME)";

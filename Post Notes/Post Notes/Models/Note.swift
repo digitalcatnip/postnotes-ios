@@ -22,5 +22,5 @@
 import Foundation
 
 class Note: BaseObject {
-    
+    dynamic var note: String = ""
 }

@@ -34,6 +34,34 @@ class NavigationController : UINavigationController {
             if !RealmManager.sharedInstance.hasMainUser() {
                 let authVC = board.instantiateViewController(withIdentifier: "authViewController")
                 self.pushViewController(authVC, animated: false)
+            } else {
+                //let noteVC = board.instantiateViewController(withIdentifier: "notesViewController")
+                //self.pushViewController(noteVC, animated: false)
+            }
+        }
+    }
+    
+    //MARK: Authentication functions
+    func logUserOut() {
+        if let board = self.storyboard {
+            let authVC = board.instantiateViewController(withIdentifier: "authViewController")
+            self.setViewControllers([authVC], animated: true)
+        } else {
+            showAlert(title: "Logout Failed", message: "Unable to log out.  Please try again later.", sourceVC: self)
+            NSLog("Unable to load AuthViewController from storyboard and reset view controller stack.")
+        }
+        
+        RealmManager.sharedInstance.logoutMainUser()
+    }
+    
+    func logUserIn() {
+        //Get the main storyboard so we can load the root view controller
+        if let board = self.storyboard {
+            
+            //If the user had logged in, we will have loaded them from Realm
+            if RealmManager.sharedInstance.hasMainUser() {
+                let noteVC = board.instantiateViewController(withIdentifier: "notesViewController")
+                self.setViewControllers([noteVC], animated: true)
             }
         }
     }

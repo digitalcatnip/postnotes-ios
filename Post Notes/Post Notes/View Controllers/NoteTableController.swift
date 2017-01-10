@@ -1,8 +1,8 @@
 //
-//  AuthViewController.swift
+//  NoteTableController.swift
 //  Post Notes
 //
-//  Created by James McCarthy on 1/8/17.
+//  Created by James McCarthy on 1/9/17.
 //  Copyright © 2017 Digital Catnip. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -20,27 +20,27 @@
 //
 
 import UIKit
-import Firebase
-import GoogleSignIn
 
-class AuthViewController: UIViewController {
-
+class NoteTableController: UITableViewController {
+    
+    var notes: [String] = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 140
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        GIDSignIn.sharedInstance().uiDelegate = self
-        if RealmManager.sharedInstance.hasMainUser() {
-            GIDSignIn.sharedInstance().signIn()
-        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return notes.count
     }
 }
-
-extension AuthViewController: GIDSignInUIDelegate {
-}
-

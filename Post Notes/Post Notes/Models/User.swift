@@ -20,6 +20,25 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class User: BaseObject {
+    dynamic var authID: String = ""
+    dynamic var email: String = ""
+    dynamic var pictureURL: String = ""
+    
+    static func initFromFirebase(firUser: FIRUser) -> User {
+        let u = User()
+        u.id = 1
+        u.authID = firUser.uid
+        if let em = firUser.email {
+            u.email = em
+        }
+        if let pic = firUser.photoURL {
+            u.pictureURL = pic.absoluteString
+        }
+        RealmManager.sharedInstance.saveModel(model: u)
+        
+        return u
+    }
 }

@@ -86,5 +86,10 @@ class RealmManager {
         }
         return false;
     }
+    
+    func logoutMainUser() {
+        realm.deleteAll()
+        mainUser = nil
+    }
 }
 
