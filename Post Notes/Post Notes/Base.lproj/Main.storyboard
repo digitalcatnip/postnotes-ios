@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -36,28 +37,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="49h-ce-wFZ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="noteCell" id="49h-ce-wFZ" customClass="NoteCell" customModule="Post_Notes" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="49h-ce-wFZ" id="KlW-3N-fjF">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zpk-nh-Y49">
-                                            <rect key="frame" x="8" y="8" width="359" height="33"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        </textView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBt-Oq-fCv">
+                                            <rect key="frame" x="16" y="8" width="343" height="33.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="zpk-nh-Y49" firstAttribute="top" secondItem="KlW-3N-fjF" secondAttribute="topMargin" id="CnZ-kO-1xk"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="zpk-nh-Y49" secondAttribute="trailing" id="lNW-Kl-xBZ"/>
-                                        <constraint firstItem="zpk-nh-Y49" firstAttribute="leading" secondItem="KlW-3N-fjF" secondAttribute="leadingMargin" id="ueR-zq-NLr"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="zpk-nh-Y49" secondAttribute="bottom" id="yiX-LV-Lhw"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="JBt-Oq-fCv" secondAttribute="bottom" id="35P-nR-0iM"/>
+                                        <constraint firstItem="JBt-Oq-fCv" firstAttribute="top" secondItem="KlW-3N-fjF" secondAttribute="topMargin" id="499-oR-INN"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="JBt-Oq-fCv" secondAttribute="trailing" constant="8" id="Tht-lF-FVS"/>
+                                        <constraint firstItem="JBt-Oq-fCv" firstAttribute="leading" secondItem="KlW-3N-fjF" secondAttribute="leadingMargin" constant="8" id="c18-aB-IqZ"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="noteText" destination="JBt-Oq-fCv" id="Roi-4a-wOQ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -65,10 +68,79 @@
                             <outlet property="delegate" destination="jPq-9V-ffH" id="kZw-zn-YdA"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="My Notes" id="GnE-Pk-kds">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="1yf-qt-Wrd">
+                            <connections>
+                                <segue destination="TCT-jS-vhM" kind="presentation" identifier="entrySegue" id="qBT-kz-dIm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UvC-jI-yZg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1556" y="546"/>
+        </scene>
+        <!--Note Entry Controller-->
+        <scene sceneID="qIK-Zm-Qmq">
+            <objects>
+                <viewController id="TCT-jS-vhM" customClass="NoteEntryController" customModule="Post_Notes" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rdp-od-6ci"/>
+                        <viewControllerLayoutGuide type="bottom" id="qr7-iz-jnA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="i0F-Am-MLq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type your note" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTW-Y5-pFG">
+                                <rect key="frame" x="123" y="40" width="129" height="26"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="20"/>
+                                <color key="textColor" red="0.92549019610000005" green="0.96862745100000003" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Vsv-dS-4iM">
+                                <rect key="frame" x="19" y="84" width="337" height="500"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="TCT-jS-vhM" id="5rF-OX-Dpv"/>
+                                </connections>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6qt-eS-cS3">
+                                <rect key="frame" x="148" y="36" width="79" height="38"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="20"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="I'm done!">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="submitNoteWithSender:" destination="TCT-jS-vhM" eventType="touchUpInside" id="HAS-Wz-iPk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Vsv-dS-4iM" firstAttribute="centerY" secondItem="i0F-Am-MLq" secondAttribute="centerY" id="8F1-Sn-1pp"/>
+                            <constraint firstItem="Vsv-dS-4iM" firstAttribute="top" secondItem="6qt-eS-cS3" secondAttribute="bottom" constant="10" id="ABB-zb-D0X"/>
+                            <constraint firstItem="hTW-Y5-pFG" firstAttribute="centerX" secondItem="i0F-Am-MLq" secondAttribute="centerX" id="Kec-EO-iU6"/>
+                            <constraint firstItem="Vsv-dS-4iM" firstAttribute="height" secondItem="i0F-Am-MLq" secondAttribute="height" multiplier="0.75" id="lIe-nq-6vI"/>
+                            <constraint firstItem="Vsv-dS-4iM" firstAttribute="top" secondItem="hTW-Y5-pFG" secondAttribute="bottom" constant="18" id="pr7-ip-woe"/>
+                            <constraint firstItem="Vsv-dS-4iM" firstAttribute="centerX" secondItem="i0F-Am-MLq" secondAttribute="centerX" id="rWn-vn-204"/>
+                            <constraint firstItem="6qt-eS-cS3" firstAttribute="centerX" secondItem="i0F-Am-MLq" secondAttribute="centerX" id="yaW-zO-VvA"/>
+                            <constraint firstItem="Vsv-dS-4iM" firstAttribute="width" secondItem="i0F-Am-MLq" secondAttribute="width" multiplier="0.9" id="zn6-yC-NdH"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="label" destination="hTW-Y5-pFG" id="C6w-sK-xBD"/>
+                        <outlet property="submitButton" destination="6qt-eS-cS3" id="s5B-rA-BRH"/>
+                        <outlet property="textView" destination="Vsv-dS-4iM" id="Qjt-LC-LJh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S6x-AW-wA0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2434" y="546"/>
         </scene>
         <!--Auth View Controller-->
         <scene sceneID="FLT-De-ftW">

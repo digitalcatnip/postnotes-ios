@@ -35,8 +35,8 @@ class NavigationController : UINavigationController {
                 let authVC = board.instantiateViewController(withIdentifier: "authViewController")
                 self.pushViewController(authVC, animated: false)
             } else {
-                //let noteVC = board.instantiateViewController(withIdentifier: "notesViewController")
-                //self.pushViewController(noteVC, animated: false)
+                let noteVC = board.instantiateViewController(withIdentifier: "notesViewController")
+                self.pushViewController(noteVC, animated: false)
             }
         }
     }

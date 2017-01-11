@@ -23,7 +23,7 @@ import UIKit
 
 class NoteTableController: UITableViewController {
     
-    var notes: [String] = [String]()
+    var notes: [Note] = [Note]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,11 @@ class NoteTableController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let noteCell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteCell
+        noteCell.note = notes[indexPath.row]
+        noteCell.configure()
         
+        return noteCell
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -42,5 +46,30 @@ class NoteTableController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notes.count
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "entrySegue" {
+            let vc = segue.destination as! NoteEntryController
+            vc.delegate = self
+        }
+    }
+}
+
+extension NoteTableController: NoteEntryDelegate {
+    func addNote(noteText: String) {
+        let note = Note()
+        note.note = noteText
+        notes.append(note)
+    }
+    
+    func dismissMe() {
+        self.dismiss(animated: true) { () in
+            self.tableView.reloadData()
+        }
     }
 }

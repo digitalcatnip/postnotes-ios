@@ -23,4 +23,12 @@ import Foundation
 
 class Note: BaseObject {
     dynamic var note: String = ""
+    
+    func uniqueID() -> Int {
+        let result = RealmManager.sharedInstance.query(type: Note.self, queryString: nil).sorted(byProperty: "id", ascending: false)
+        if result.count > 0 {
+            return result[0].id + 1
+        }
+        return 100
+    }
 }
