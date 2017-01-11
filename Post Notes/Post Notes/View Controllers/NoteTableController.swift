@@ -32,6 +32,14 @@ class NoteTableController: UITableViewController {
         self.tableView.estimatedRowHeight = 140
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        //1. Load notes from Realm
+        
+        //2. Refresh from API
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let noteCell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteCell
         noteCell.note = notes[indexPath.row]
@@ -57,6 +65,20 @@ class NoteTableController: UITableViewController {
             let vc = segue.destination as! NoteEntryController
             vc.delegate = self
         }
+    }
+    
+    //TODO: Fill this in
+    func reloadFromAPI() {
+        //This is a 2 step process -
+        //1. Call the API to refresh Realm
+        //2. When the API is done, then reload from Realm
+        //3. Pay attention to what thread you are located on!
+    }
+    
+    //TODO: Fill this in
+    func loadFromRealm() {
+        //A call to RealmManager is probably appropriate here
+        //What variable stores the notes for the table?
     }
 }
 
