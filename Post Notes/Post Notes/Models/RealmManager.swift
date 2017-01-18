@@ -20,6 +20,7 @@
 //
 
 import RealmSwift
+import Firebase
 
 class BaseObject: Object {
     dynamic var id = 0
@@ -73,6 +74,20 @@ class RealmManager {
         NSLog("Found %d users", users.count)
         if(users.count > 0) {
             mainUser = users[0];
+            if let auth = FIRAuth.auth() {
+                if let fUser = auth.currentUser {
+                    fUser.getTokenWithCompletion() { (token, error) in
+                        if let t = token {
+                            try! self.realm.write {
+                                self.mainUser!.authToken = t
+                                NSLog("Token set to \(self.mainUser!.authToken)")
+                            }
+                        } else {
+                            NSLog("Unable to get current auth token: \(error!.localizedDescription)")
+                        }
+                    }
+                }
+            }
         }
     }
     

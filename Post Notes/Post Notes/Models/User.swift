@@ -26,6 +26,7 @@ class User: BaseObject {
     dynamic var authID: String = ""
     dynamic var email: String = ""
     dynamic var pictureURL: String = ""
+    dynamic var authToken: String = ""
     
     static func initFromFirebase(firUser: FIRUser) -> User {
         let u = User()
@@ -38,6 +39,16 @@ class User: BaseObject {
             u.pictureURL = pic.absoluteString
         }
         RealmManager.sharedInstance.saveModel(model: u)
+        firUser.getTokenWithCompletion() { (token, error) in
+            if let t = token {
+                try! RealmManager.sharedInstance.realm.write {
+                    u.authToken = t
+                    NSLog("Token set to \(t)")
+                }
+            } else {
+                NSLog("Unable to get firebase token: \(error!.localizedDescription)")
+            }
+        }
         
         return u
     }
