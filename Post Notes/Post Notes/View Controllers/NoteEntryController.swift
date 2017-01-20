@@ -42,6 +42,7 @@ class NoteEntryController: UIViewController {
     }
     
     @IBAction func submitNote(sender: UIButton) {
+        //Hide the keyboard and tell the delegate to save the note
         textView.resignFirstResponder()
         if let d = delegate {
             let nsString = textView.text as NSString
@@ -60,6 +61,7 @@ class NoteEntryController: UIViewController {
 //MARK: UITextViewDelegate functions
 extension NoteEntryController: UITextViewDelegate {    
     func textViewDidBeginEditing(_ textView: UITextView) {
+        //The first time we edit, hide the hint and show the submit button.
         if submitButton.isHidden {
             submitButton.isHidden = false
             submitButton.alpha = 0.0

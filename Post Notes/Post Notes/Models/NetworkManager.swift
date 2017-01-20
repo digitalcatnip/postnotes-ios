@@ -37,24 +37,26 @@ enum PNNetworkError : String, Error {
 
 
 class NetworkManager {
-    static let apiKey = ""
-    static let apiURL = "";
+    static let apiURL = "https://post-notes.appspot.com/"
+    static var authToken = ""
     static var hasInitialized = false
     static var inBackground = false
     static var session = URLSession.shared
 
+    //Entry point to initialize the HTTP session -
+    //We use that session on every call.
     class func initializeSession() {
         configureSession()
         hasInitialized = true
         inBackground = false
     }
     
-    //This function sets the Api-Key header on our HTTP request
-    //so that the api key is sent on every request and we don't have
+    //This function sets the Authorization header on our HTTP request
+    //so that the Firebase JWT is sent on every request and we don't have
     //to always set it.
     class func configureSession() {
         let config = URLSessionConfiguration.default
-        let dict = ["Api-Key": apiKey];
+        let dict = ["Authorization": authToken];
         if hasInitialized {
             session.finishTasksAndInvalidate()
         }

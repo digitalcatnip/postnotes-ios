@@ -43,6 +43,8 @@ class NavigationController : UINavigationController {
     
     //MARK: Authentication functions
     func logUserOut() {
+        //Log user out of the app by showing the authentication screen, and then telling 
+        //Realm to log the user out
         if let board = self.storyboard {
             let authVC = board.instantiateViewController(withIdentifier: "authViewController")
             self.setViewControllers([authVC], animated: true)

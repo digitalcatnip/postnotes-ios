@@ -29,7 +29,9 @@ class AuthViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
+        //We should handle any UI events
         GIDSignIn.sharedInstance().uiDelegate = self
+        //If we have a user already, sign into Firebase so we get dismissed
         if RealmManager.sharedInstance.hasMainUser() {
             GIDSignIn.sharedInstance().signIn()
         }

@@ -44,39 +44,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any])
         -> Bool {
+            //Deep link for Google signin screen
             return GIDSignIn.sharedInstance().handle(url,
                                                      sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
                                                         annotation: [:])
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        //Deep link for Google signin screen
         return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
-    }
-
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 }
 
 extension AppDelegate: GIDSignInDelegate {
+    //Utility function to show an alert
     func showAlert(title : String, message: String) {
         let alert = UIAlertController(
             title: title,
@@ -96,6 +77,7 @@ extension AppDelegate: GIDSignInDelegate {
 
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        //Google Signin Finished - let's hand it off to Firebase.
         if let error = error {
             DispatchQueue.main.async {
                 self.showAlert(title: "Login Failed", message: error.localizedDescription)
@@ -105,13 +87,17 @@ extension AppDelegate: GIDSignInDelegate {
         
         guard let authentication = user.authentication else { return }
         let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+        //Signin to firebase using the Google token
         FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+            //If the firebase signin succeeded, we'll have a user, otherwise we'll have an error
             if let error = error {
                 DispatchQueue.main.async {
                     self.showAlert(title: "Login Failed", message: error.localizedDescription)
                 }
                 return
             } else if let uzer = user {
+                //Create our realm user from Firebase user, then save it to the database and
+                //show the list of notes
                 let u = User.initFromFirebase(firUser: uzer)
                 RealmManager.sharedInstance.mainUser = u
                 let vc = self.window?.rootViewController as! NavigationController
@@ -120,9 +106,11 @@ extension AppDelegate: GIDSignInDelegate {
         }
     }
     
-    func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
-                withError error: NSError!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user:GIDGoogleUser!,
+                withError error: Error!) {
+        //This is mostly untested - not clear to me when didDisconnectWith gets called
+//        try! FIRAuth.auth()?.signOut()
+//        let vc = self.window?.rootViewController as! NavigationController
+//        vc.logUserOut()
     }
 }

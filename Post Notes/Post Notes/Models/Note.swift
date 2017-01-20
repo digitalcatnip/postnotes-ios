@@ -24,6 +24,7 @@ import Foundation
 class Note: BaseObject {
     dynamic var note: String = ""
     
+    //Get a unique ID from the database of Realm - this will eventually be once we add networking
     func uniqueID() -> Int {
         let result = RealmManager.sharedInstance.query(type: Note.self, queryString: nil).sorted(byProperty: "id", ascending: false)
         if result.count > 0 {

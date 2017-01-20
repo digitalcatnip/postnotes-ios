@@ -80,6 +80,8 @@ class RealmManager {
                         if let t = token {
                             try! self.realm.write {
                                 self.mainUser!.authToken = t
+                                NetworkManager.authToken = t
+                                NetworkManager.initializeSession()
                                 NSLog("Token set to \(self.mainUser!.authToken)")
                             }
                         } else {

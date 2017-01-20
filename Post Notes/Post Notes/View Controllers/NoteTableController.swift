@@ -42,6 +42,8 @@ class NoteTableController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let noteCell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NoteCell
+        //Get the current note the table wants to display
+        //and refresh the table cell
         noteCell.note = notes[indexPath.row]
         noteCell.configure()
         

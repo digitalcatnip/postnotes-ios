@@ -43,6 +43,8 @@ class User: BaseObject {
             if let t = token {
                 try! RealmManager.sharedInstance.realm.write {
                     u.authToken = t
+                    NetworkManager.authToken = t
+                    NetworkManager.initializeSession()
                     NSLog("Token set to \(t)")
                 }
             } else {
