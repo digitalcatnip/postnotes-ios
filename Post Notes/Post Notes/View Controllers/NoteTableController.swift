@@ -35,9 +35,8 @@ class NoteTableController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        //1. Load notes from Realm
-        
-        //2. Refresh from API
+        reloadFromAPI()
+        loadFromRealm()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,6 +88,8 @@ extension NoteTableController: NoteEntryDelegate {
         let note = Note()
         note.note = noteText
         notes.append(note)
+        
+        //TODO: Send to the API and reload the UI
     }
     
     func dismissMe() {
